@@ -1,0 +1,25 @@
+Write a command line that displays your machine’s MAC addresses. Each address
+
+must be followed by a line break.
+
+To display the MAC addresses of your machine, you can use the `ifconfig` command (or `ip` command, depending on your system). Here's the command:
+
+```bash
+
+ifconfig | grep -o -E '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}'
+
+```
+
+Let's break down the command:
+
+- `ifconfig`: This command displays network interface information, including MAC addresses.
+
+- `grep -o -E '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}'`: The `grep` command with the `-o` option is used to extract the matching MAC address pattern.
+
+  - `([0-9A-Fa-f]{2}:){5}`: This matches a group of six pairs of hexadecimal digits followed by a colon. This represents the first 5 pairs of digits in the MAC address.
+
+  - `[0-9A-Fa-f]{2}`: This matches the last pair of hexadecimal digits in the MAC address.
+
+  - The overall pattern matches a complete MAC address.
+
+When you run this command, it will display the MAC addresses of your machine, with each address on a separate line.
