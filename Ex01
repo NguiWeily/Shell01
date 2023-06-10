@@ -1,0 +1,57 @@
+Write a command line that will display the list of groups for which the login,
+
+contained in the environment variable FT_USER , is a member. Separated by
+
+commas without spaces.
+
+• Examples :
+
+◦ for FT_USER=nours, the result is "god,root,admin,master,nours,bocal" (with-
+
+out quotation marks)
+
+$>./print_groups.sh
+
+god,root,admin,master,nours,bocal$>
+
+◦ for FT_USER=daemon, the result is "daemon,bin" (without quotation marks)
+
+$>./print_groups.sh
+
+daemon,bin$>
+
+To achieve the desired result, you can create a shell script file named `print_groups.sh` and include the following code:
+
+```bash
+
+#!/bin/bash
+
+# Retrieve the value of the FT_USER environment variable
+
+username=$FT_USER
+
+# Use the "groups" command to get the list of groups for the given user
+
+group_list=$(groups "$username")
+
+# Remove the username from the group list
+
+group_list=${group_list#*:}
+
+# Remove any leading or trailing spaces
+
+group_list=${group_list// /}
+
+# Replace spaces with commas
+
+group_list=${group_list// /,}
+
+# Print the group list
+
+echo "$group_list"
+
+```
+
+Make sure to give execute permissions to the script file using the command: `chmod +x print_groups.sh`.
+
+Now, when you execute the `print_groups.sh` script, it will retrieve the value of the `FT_USER` environment variable, obtain the list of groups for that user, and display the group names separated by commas without spaces.
