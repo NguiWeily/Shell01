@@ -1,0 +1,41 @@
+Write a command line that searches for all file names that end with ".sh" (without
+
+quotation marks) in the current directory and all its sub-directories. It should
+
+display only the file names without the .sh.
+
+• Example of output :
+
+$>./find_sh.sh | cat -e
+
+find_sh$
+
+file1$
+
+file2$
+
+file3$
+
+$>
+
+To search for all file names that end with ".sh" in the current directory and its subdirectories, and display only the file names without the ".sh" extension, you can use the `find` command along with `basename` and `sed`. Here's the command:
+
+```bash
+
+find . -type f -name "*.sh" -exec basename {} \; | sed 's/\.sh$//'
+
+```
+
+Let's break down the command:
+
+- `find .`: Start the search in the current directory.
+
+- `-type f`: Only consider regular files.
+
+- `-name "*.sh"`: Look for files with names ending in ".sh".
+
+- `-exec basename {} \;`: Execute the `basename` command on each file found to extract only the file name (removing the directory path).
+
+- `sed 's/\.sh$//'`: Remove the ".sh" extension from the file names.
+
+When you run this command, it will display the file names without the ".sh" extension, separated by newlines. You can use `cat -e` as shown in your example to display the output with a `$` at the end of each line.
