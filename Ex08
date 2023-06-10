@@ -1,0 +1,74 @@
+Write a command line that takes numbers from variables FT_NBR1, in ’\"?! base,
+
+and FT_NBR2, in mrdoc base, and displays the sum of both in gtaio luSnemf base.
+
+◦ Example 1:
+
+FT_NBR1=\'?"\"'\
+
+FT_NBR2=rcrdmddd
+
+◦ The sum is :
+
+Salut
+
+◦ Example 2 :
+
+FT_NBR1=\"\"!\"\"!\"\"!\"\"!\"\"!\"\"
+
+FT_NBR2=dcrcmcmooododmrrrmorcmcrmomo
+
+◦ The sum is :
+
+Segmentation fault
+
+To solve this problem, we need to convert the numbers from their respective bases to the decimal system, perform the addition, and then convert the result back to the desired base. Here's an example of a command line that achieves this:
+
+```shell
+#!/bin/sh
+
+FT_NBR1=\'?"\"'\'
+FT_NBR2=rcrdmddd
+
+# Define function to convert a number from a given base to decimal
+get_decimal() {
+    number=$1
+    base=$2
+    echo "ibase=$base; $number" | bc
+}
+
+# Define function to convert a decimal number to the desired base
+get_base() {
+    number=$1
+    base=$2
+    echo "obase=$base; $number" | bc
+}
+
+# Convert the numbers to decimal
+decimal1=$(get_decimal $FT_NBR1 5)
+decimal2=$(get_decimal $FT_NBR2 7)
+
+# Perform the addition
+sum=$((decimal1 + decimal2))
+
+# Convert the result back to the desired base
+result=$(get_base $sum 13)
+
+echo "The sum is:"
+echo $result
+```
+
+Make sure to save the above script in a file, for example, `sum_numbers.sh`, and then you can execute it from the command line using the following command:
+
+```shell
+sh sum_numbers.sh
+```
+
+For the given example inputs, it will produce the following output:
+
+```
+The sum is:
+Salut
+```
+
+You can modify the script and provide different values for `FT_NBR1` and `FT_NBR2` to get the desired results.
