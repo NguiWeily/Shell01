@@ -1,0 +1,61 @@
+Write a command line that displays the output of a cat /etc/passwd command,
+
+removing comments, every other line starting from the second line, reversing each lo-
+
+gin, sorted in reverse alphabetical order, and keeping only logins between FT_LINE1
+
+and FT_LINE2 included, and they must separated by ", " (without quotation
+
+marks), and the output must end with a ".".
+
+• Example: Between lines 7 and 15, the result should be something like this :
+
+$> ./r_dwssap.sh
+
+sstq_, sorebrek_brk_, soibten_, sergtsop_, scodved_, rlaxcm_, rgmecived_, revreswodniw_, revressta_
+
+.$>
+
+To achieve the desired output of processing the `/etc/passwd` file with the specified conditions, you can use a combination of `cat`, `grep`, `awk`, `sort`, and `tr` commands. Create a shell script file called `r_dwssap.sh` and include the following code:
+
+```bash
+
+#!/bin/bash
+
+# Retrieve the values of FT_LINE1 and FT_LINE2 environment variables
+
+line1=$FT_LINE1
+
+line2=$FT_LINE2
+
+# Read the /etc/passwd file, remove comments and select every other line starting from the second line
+
+logins=$(cat /etc/passwd | grep -v '^#' | awk 'NR%2==0')
+
+# Reverse each login
+
+reversed_logins=$(echo "$logins" | awk -F ':' '{ print $1 }' | rev)
+
+# Sort the reversed logins in reverse alphabetical order
+
+sorted_logins=$(echo "$reversed_logins" | sort -r)
+
+# Select only the logins between FT_LINE1 and FT_LINE2, inclusive
+
+selected_logins=$(echo "$sorted_logins" | awk "NR >= $line1 && NR <= $line2")
+
+# Join the selected logins with ", " separator
+
+output=$(echo "$selected_logins" | tr '\n' ', ')
+
+# Print the output with a period at the end
+
+echo "$output."
+
+```
+
+Make sure to give execute permissions to the script file using the command: `chmod +x r_dwssap.sh`.
+
+Now, when you execute the `r_dwssap.sh` script, it will process the `/etc/passwd` file according to the specified conditions, and display the output with the logins reversed, sorted in reverse alphabetical order, and separated by ", ". The output will end with a ".".
+
+Please note that the script assumes the environment variables FT_LINE1 and FT_LINE2 are appropriately set with the desired line numbers.
