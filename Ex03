@@ -1,0 +1,43 @@
+Write a command line that counts and displays the number of regular files and
+
+directories in the current directory and all its sub-directories. It should include ".",
+
+the starting directory.
+
+• Example of output :
+
+$>./count_files.sh | cat -e
+
+42$
+
+$>
+
+To count and display the number of regular files and directories in the current directory and its subdirectories, including the starting directory (".") itself, you can use the `find` command with the `-type` option and `wc` command to count the lines. Here's the command:
+
+```bash
+
+find . -type f -o -type d | wc -l
+
+```
+
+Let's break down the command:
+
+- `find .`: Start the search in the current directory.
+
+- `-type f -o -type d`: Select both regular files (`-type f`) and directories (`-type d`).
+
+- `|`: Pipe the output of the `find` command to the next command.
+
+- `wc -l`: Count the number of lines in the input.
+
+When you run this command, it will count the number of regular files and directories in the current directory and its subdirectories, including the starting directory (".") itself, and display the count.
+
+If you want to display the output with a `$` at the end, you can use `cat -e` as shown in your example:
+
+```bash
+
+find . -type f -o -type d | wc -l | cat -e
+
+```
+
+This will give you the desired output with the count followed by `$`.
